@@ -3,18 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Move the Box</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Style for the container and moving box */
-        #container {
-            width: 500px;
-            height: 500px;
-            border: 2px solid #000;
-            position: relative;
-            margin: 50px auto;
-        }
-        
+        /* Style for the moving box */
         #movingBox {
             width: 50px;
             height: 50px;
@@ -77,7 +69,7 @@
             $('#left').click(function() {
                 let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                let newLeft = currentLeft - moveDistance;
+                let newLeft = currentLeft - moveDistance; // Move left
                 $('#movingBox').css('left', newLeft);
                 updatePosition(newLeft, currentTop);
             });
@@ -86,7 +78,7 @@
             $('#right').click(function() {
                 let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                let newLeft = currentLeft + moveDistance;
+                let newLeft = currentLeft + moveDistance; // Move right
                 $('#movingBox').css('left', newLeft);
                 updatePosition(newLeft, currentTop);
             });
@@ -95,7 +87,7 @@
             $('#up').click(function() {
                 let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                let newTop = currentTop - moveDistance;
+                let newTop = currentTop - moveDistance; // Move up
                 $('#movingBox').css('top', newTop);
                 updatePosition(currentLeft, newTop);
             });
@@ -104,7 +96,7 @@
             $('#down').click(function() {
                 let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                let newTop = currentTop + moveDistance;
+                let newTop = currentTop + moveDistance; // Move down
                 $('#movingBox').css('top', newTop);
                 updatePosition(currentLeft, newTop);
             });
@@ -112,9 +104,7 @@
     </script>
 </head>
 <body>
-    <div id="container">
-        <div id="movingBox"></div>
-    </div>
+    <div id="movingBox"></div>
 
     <div style="text-align: center;">
         <button id="left">Left</button>
