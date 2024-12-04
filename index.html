@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move the Box</title>
+    <style>
+        /* Style for the container and moving box */
+        #container {
+            width: 500px;
+            height: 500px;
+            border: 2px solid #000;
+            position: relative;
+            margin: 50px auto;
+        }
+        
+        #movingBox {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Button styling */
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const moveDistance = 50;  // Distance the box moves with each button click
+            
+            // Move the box left
+            $('#left').click(function() {
+                let currentLeft = $('#movingBox').position().left;
+                $('#movingBox').css('left', currentLeft - moveDistance);
+            });
+
+            // Move the box right
+            $('#right').click(function() {
+                let currentLeft = $('#movingBox').position().left;
+                $('#movingBox').css('left', currentLeft + moveDistance);
+            });
+
+            // Move the box up
+            $('#up').click(function() {
+                let currentTop = $('#movingBox').position().top;
+                $('#movingBox').css('top', currentTop - moveDistance);
+            });
+
+            // Move the box down
+            $('#down').click(function() {
+                let currentTop = $('#movingBox').position().top;
+                $('#movingBox').css('top', currentTop + moveDistance);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="movingBox"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <button id="left">Left</button>
+        <button id="right">Right</button><br>
+        <button id="up">Up</button>
+        <button id="down">Down</button>
+    </div>
+</body>
+</html>
