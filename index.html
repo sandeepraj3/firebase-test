@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Move the Box</title>
     <style>
         /* Style for the container and moving box */
@@ -32,34 +33,80 @@
             cursor: pointer;
         }
     </style>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <!-- Include Firebase SDK -->
+    <script type="module">
+        // Import the Firebase modules that you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCrwZanbSHaDyObMqA-rPkU8STHvNWCGQ",
+            authDomain: "createapp-9409a.firebaseapp.com",
+            projectId: "createapp-9409a",
+            storageBucket: "createapp-9409a.firebasestorage.app",
+            messagingSenderId: "901963999210",
+            appId: "1:901963999210:web:a002b876d21258d819f493"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
         $(document).ready(function() {
             const moveDistance = 50;  // Distance the box moves with each button click
-            
+
+            // Retrieve the position from Firebase and set it
+            get(ref(database, 'boxPosition')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const position = snapshot.val();
+                    $('#movingBox').css('left', position.left);
+                    $('#movingBox').css('top', position.top);
+                }
+            });
+
+            // Function to update position in Firebase
+            function updatePosition(left, top) {
+                set(ref(database, 'boxPosition'), {
+                    left: left,
+                    top: top
+                });
+            }
+
             // Move the box left
             $('#left').click(function() {
                 let currentLeft = $('#movingBox').position().left;
-                $('#movingBox').css('left', currentLeft - moveDistance);
+                let currentTop = $('#movingBox').position().top;
+                let newLeft = currentLeft - moveDistance;
+                $('#movingBox').css('left', newLeft);
+                updatePosition(newLeft, currentTop);
             });
 
             // Move the box right
             $('#right').click(function() {
                 let currentLeft = $('#movingBox').position().left;
-                $('#movingBox').css('left', currentLeft + moveDistance);
+                let currentTop = $('#movingBox').position().top;
+                let newLeft = currentLeft + moveDistance;
+                $('#movingBox').css('left', newLeft);
+                updatePosition(newLeft, currentTop);
             });
 
             // Move the box up
             $('#up').click(function() {
+                let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                $('#movingBox').css('top', currentTop - moveDistance);
+                let newTop = currentTop - moveDistance;
+                $('#movingBox').css('top', newTop);
+                updatePosition(currentLeft, newTop);
             });
 
             // Move the box down
             $('#down').click(function() {
+                let currentLeft = $('#movingBox').position().left;
                 let currentTop = $('#movingBox').position().top;
-                $('#movingBox').css('top', currentTop + moveDistance);
+                let newTop = currentTop + moveDistance;
+                $('#movingBox').css('top', newTop);
+                updatePosition(currentLeft, newTop);
             });
         });
     </script>
